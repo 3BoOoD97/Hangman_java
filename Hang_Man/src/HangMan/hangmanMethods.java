@@ -1,13 +1,11 @@
-package HangMan;
+package abod;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class hangmanMethods {
-
-	public static ArrayList<Character> arr = new ArrayList<Character>();
-
+	public static String UserName;
+	private static ArrayList<Character> arr = new ArrayList<Character>();
 	public static ArrayList<Character> Spaces = new ArrayList<Character>();
 	public static int setlevel = 0;
 
@@ -15,12 +13,19 @@ public class hangmanMethods {
 	public static int level = 0;
 	public static boolean runoff = false;
 	static Scanner scan = new Scanner(System.in);
-
+public static void start() {
+	setName();
+	menu();
+}
 	public static void menu() {
-		System.out.println("Press 1 :  Start a new game");
-		System.out.println("Press 2 :  Change the level");
-		System.out.println("Press 0 :  Exit the game ");
-
+		System.out.println();
+		System.out.println("Wlecome "+ UserName + " ^_^");
+		System.out.println();
+		System.out.println(" ______________Menu_____________");
+		System.out.println("| Press 1 :  Start a new game   |");
+		System.out.println("| Press 2 :  Change the level   |");
+		System.out.println("| Press 0 :  Exit the game      |");
+        System.out.println("*********************************");
 		int s = scan.nextInt();
 
 		if (s > 2 && s < 0) {
@@ -46,23 +51,30 @@ public class hangmanMethods {
 					next();
 					check();
 					break;
-				}
-				else
+				} else
 					System.out.println("Pls enter a right value");
 			}
-		}
-		else if (s == 0) {
+		} else if (s == 0) {
 			trunOff();
 		} else
 			System.err.println("Enter a right value from the menu");
 		menu();
 
 	}
+	public static void setName() {
+		System.out.println("Enter UserName");
+		UserName=scan.next();
+		for (int i = 0 ; i<UserName.length();i++)
+		if (Character.isDigit(UserName.charAt(i))) {
+			setName();
+		}
+	
+	}
 
 	public static void trunOff() {
 		runoff = true;
 		if (runoff == true)
-			System.out.println("Bye Bye ... ^_^");
+			System.out.println("Bye Bye "+  UserName + " ^_^");
 		System.exit(0);
 	}
 
@@ -118,11 +130,12 @@ public class hangmanMethods {
 			System.out.print(c + "  ");
 		}
 	}
+
 	public static void check() {
 		ArrayList<Character> taken = new ArrayList<Character>();
 		final int attempts = 10;
 		if (level > 5) {
-			System.err.println("End  of the game");
+			System.err.println("End  of the game ");
 			menu();
 		}
 		arr.clear();
@@ -132,11 +145,11 @@ public class hangmanMethods {
 		Gaps();
 		for (int i = attempts; i >= 0; i--) {
 			if (i == 0) {
-				System.err.println("Sorry you dindt make it after 10 attempts the word is :  " + word);
+				System.err.println("Sorry you did not make it after 10 attempts the word is :  " + word);
 				agineOrExit();
 			}
 			if (Spaces.equals(arr)) {
-				System.out.println("You make it the word is :  " + word);
+				System.out.println("You won the word is :  " + word);
 				agineOrExit();
 			}
 			System.out.println();
@@ -214,14 +227,12 @@ public class hangmanMethods {
 		}
 
 	}
+
 	public static String bug() {
-		
-	
-		
-		hangmanMethods.word=next();
+
+		hangmanMethods.word = next();
 
 		return word;
-		
-		
+
 	}
 }
